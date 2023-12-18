@@ -14,6 +14,21 @@ class App extends Component{
       filter: ''
       };
 
+      componentDidMount() { 
+        const localData = localStorage.getItem('contacts')
+        if (localData) {
+          this.setState({
+            contacts: JSON.parse(localData)
+          })
+        }
+       }
+
+       componentDidUpdate(prevProps, prevState) { 
+        if (prevState.contacts.length !== this.state.contacts.length) {
+          localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+        }
+       } 
+
       addContact = ({ name, number }) => {
         const normalizedName = name.toLowerCase();
     
