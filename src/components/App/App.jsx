@@ -10,21 +10,23 @@ import { Filter } from "components/Filter/Filter";
 
 class App extends Component{
     state = {
-      contacts: data,
+      contacts: [],
       filter: ''
       };
 
-      componentDidMount() { 
-        const localData = localStorage.getItem('contacts')
-        if (localData) {
-          this.setState({
-            contacts: JSON.parse(localData)
-          })
-        }
-       }
+     componentDidMount() { 
+      const localData = localStorage.getItem('contacts')
+        if (localData && JSON.parse(localData).length > 0){
+            this.setState({contacts: JSON.parse(localData),
+            })
+        } else 
+        this.setState({
+          contacts: data,
+        })
+      }
 
        componentDidUpdate(prevProps, prevState) { 
-        if (prevState.contacts.length !== this.state.contacts.length) {
+        if (prevState.contacts?.length !== this.state.contacts.length) {
           localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
         }
        } 
