@@ -52,7 +52,8 @@ class App extends Component{
         };
         this.setState(prevState => ({
           contacts: [...prevState.contacts, contact],
-        }));
+        }),
+        ()=> localStorage.setItem('contacts', JSON.stringify(this.state.contacts)));
       };
     
       changeFilter = e => {
